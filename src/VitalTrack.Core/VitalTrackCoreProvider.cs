@@ -12,5 +12,9 @@ public static class VitalTrackCoreProvider
     ///     Adds the core dependencies for Vital Track.
     /// </summary>
     /// <param name="services">Dependency collection.</param>
-    public static void AddVitalTrackCore(this IServiceCollection services) { }
+    public static void AddVitalTrackCore(this IServiceCollection services)
+    {
+        // Normally, we'd have things likes MediatR, FluentValidator, etc. that would all be provided
+        // by the core library here, though our use case is simple enough and I want to keep this to four hours
+    }
 }

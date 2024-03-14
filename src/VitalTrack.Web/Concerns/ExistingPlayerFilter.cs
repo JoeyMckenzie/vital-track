@@ -1,9 +1,13 @@
 using System.Net;
+
 using VitalTrack.Core;
 using VitalTrack.Core.Services;
 
 namespace VitalTrack.Web.Concerns;
 
+/// <summary>
+///     An endpoint filter for asserting the player exists for specific API endpoints.
+/// </summary>
 public class ExistingPlayerFilter : IEndpointFilter
 {
     private readonly IPlayerRepository _playerRepository;

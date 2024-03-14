@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+
 using VitalTrack.Core;
 using VitalTrack.Core.Services;
 
@@ -12,12 +13,11 @@ public static class Endpoints
     /// <summary>
     ///     Represents an endpoint for dealing damage to a player's current health.
     /// </summary>
-    /// <param name="playerName"></param>
-    /// <param name="request"></param>
-    /// <param name="hitPointManager"></param>
+    /// <param name="playerName">Name of the player.</param>
+    /// <param name="request">HP modifier request.</param>
+    /// <param name="hitPointManager">HP manager, pulled from the container.</param>
     /// <param name="cancellationToken">Default ASP.NET cancellation context.</param>
-    /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
+    /// <returns>OK, if the damage was successfully dealt.</returns>
     private static async Task<IResult> DealDamageAsync(
         [FromRoute] string playerName,
         [FromBody] HitPointModifierRequest request,
@@ -37,9 +37,11 @@ public static class Endpoints
     /// <summary>
     ///     Provides an operation for healing the current health the player.
     /// </summary>
+    /// <param name="playerName">Name of the player.</param>
+    /// <param name="request">HP modifier request.</param>
+    /// <param name="hitPointManager">HP manager, pulled from the container.</param>
     /// <param name="cancellationToken">Default ASP.NET cancellation context.</param>
-    /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
+    /// <returns>OK, if the player was successfully healed.</returns>
     private static async Task<IResult> HealCurrentHealthAsync(
         [FromRoute] string playerName,
         [FromBody] HitPointModifierRequest request,
@@ -59,9 +61,11 @@ public static class Endpoints
     /// <summary>
     ///     Provides an operation for adding temporary hit points to the player's health.
     /// </summary>
+    /// <param name="playerName">Name of the player.</param>
+    /// <param name="request">HP modifier request.</param>
+    /// <param name="hitPointManager">HP manager, pulled from the container.</param>
     /// <param name="cancellationToken">Default ASP.NET cancellation context.</param>
-    /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
+    /// <returns>OK, if the temporary health was successfully added to the player.</returns>
     private static async Task<IResult> AddTemporaryHealth(
         [FromRoute] string playerName,
         [FromBody] HitPointModifierRequest request,
@@ -81,10 +85,10 @@ public static class Endpoints
     /// <summary>
     ///     Provides an endpoint for retrieving the current health status of the player.
     /// </summary>
-    /// <param name="playerRepository"></param>
+    /// <param name="playerName">Name of the player.</param>
+    /// <param name="playerRepository">Player repository, pulled from the container.</param>
     /// <param name="cancellationToken">Default ASP.NET cancellation context.</param>
-    /// <param name="playerName"></param>
-    /// <returns></returns>
+    /// <returns>OK, if the player information was successfully found.</returns>
     private static async Task<IResult> GetCurrentPlayerInfo(
         [FromRoute] string playerName,
         IPlayerRepository playerRepository,
@@ -93,6 +97,7 @@ public static class Endpoints
     {
         var player = await playerRepository.FindPlayerAsync(playerName, cancellationToken);
 
+        // We can assert non-nullability here as the endpoint filter validates the player exists
         return Results.Ok(player!.State);
     }
 

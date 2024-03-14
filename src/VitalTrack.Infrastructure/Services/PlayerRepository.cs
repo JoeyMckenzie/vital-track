@@ -3,6 +3,7 @@ using VitalTrack.Core.Services;
 
 namespace VitalTrack.Infrastructure.Services;
 
+/// <inheritdoc />
 public class PlayerRepository : IPlayerRepository
 {
     private readonly List<Player> _players = [];
