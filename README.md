@@ -1,5 +1,7 @@
 # Vital Track
 
+[![CI](https://github.com/JoeyMckenzie/vital-track/actions/workflows/ci.yml/badge.svg)](https://github.com/JoeyMckenzie/vital-track/actions/workflows/ci.yml)
+
 Your friendly neighborhood hit point tracker for DnD! (Yes, the name is ChatGPT generated...)
 
 Vital Track is an example
