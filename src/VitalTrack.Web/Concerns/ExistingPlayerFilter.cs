@@ -1,5 +1,4 @@
 using System.Net;
-
 using VitalTrack.Core;
 using VitalTrack.Core.Services;
 

@@ -1,5 +1,4 @@
 using Microsoft.Extensions.DependencyInjection;
-
 using VitalTrack.Core.Services;
 using VitalTrack.Infrastructure.Services;
 
