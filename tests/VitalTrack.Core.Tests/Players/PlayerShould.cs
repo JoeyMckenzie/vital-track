@@ -1,5 +1,4 @@
 using FluentAssertions;
-
 using VitalTrack.Core.Models;
 
 namespace VitalTrack.Core.Tests.Players;

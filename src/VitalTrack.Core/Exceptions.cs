@@ -5,9 +5,7 @@ namespace VitalTrack.Core;
 public class VitalTrackHttpException : Exception
 {
     public VitalTrackHttpException(string message, HttpStatusCode statusCode)
-        : base(message)
-    {
-    }
+        : base(message) { }
 
     public HttpStatusCode StatusCode { get; }
 
