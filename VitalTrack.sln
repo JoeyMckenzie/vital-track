@@ -1,0 +1,70 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{61174C54-736A-4CAF-8614-F2A436AACE5F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VitalTrack.Core", "src\VitalTrack.Core\VitalTrack.Core.csproj", "{378F94D7-BBF2-4303-80F6-53FB2B53BE11}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VitalTrack.Infrastructure", "src\VitalTrack.Infrastructure\VitalTrack.Infrastructure.csproj", "{6DE06025-129A-4883-8E67-07B6BBF50AC0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VitalTrack.Web", "src\VitalTrack.Web\VitalTrack.Web.csproj", "{A391B43A-EE00-4D56-8A5C-67ABBCC74AC6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{A668E67E-3998-44CB-8FAF-1E177B3C649B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{3AF11F6A-737C-4AB4-BF9C-DE7695B5D447}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+		justfile = justfile
+		Directory.Build.props = Directory.Build.props
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+		.csharpierrc.json = .csharpierrc.json
+		Dockerfile = Dockerfile
+		.dockerignore = .dockerignore
+		fly.toml = fly.toml
+		README.md = README.md
+		.github\workflows\ci.yml = .github\workflows\ci.yml
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VitalTrack.Core.Tests", "tests\VitalTrack.Core.Tests\VitalTrack.Core.Tests.csproj", "{1C9537C7-1FF6-4621-BEC7-BCC4544ABE07}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "templates", "templates", "{79340F0B-114F-4A4A-832B-6D3AD9AEB8A7}"
+	ProjectSection(SolutionItems) = preProject
+		templates\briv.json = templates\briv.json
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{378F94D7-BBF2-4303-80F6-53FB2B53BE11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{378F94D7-BBF2-4303-80F6-53FB2B53BE11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{378F94D7-BBF2-4303-80F6-53FB2B53BE11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{378F94D7-BBF2-4303-80F6-53FB2B53BE11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DE06025-129A-4883-8E67-07B6BBF50AC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DE06025-129A-4883-8E67-07B6BBF50AC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DE06025-129A-4883-8E67-07B6BBF50AC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DE06025-129A-4883-8E67-07B6BBF50AC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A391B43A-EE00-4D56-8A5C-67ABBCC74AC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A391B43A-EE00-4D56-8A5C-67ABBCC74AC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A391B43A-EE00-4D56-8A5C-67ABBCC74AC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A391B43A-EE00-4D56-8A5C-67ABBCC74AC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C9537C7-1FF6-4621-BEC7-BCC4544ABE07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C9537C7-1FF6-4621-BEC7-BCC4544ABE07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C9537C7-1FF6-4621-BEC7-BCC4544ABE07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C9537C7-1FF6-4621-BEC7-BCC4544ABE07}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{378F94D7-BBF2-4303-80F6-53FB2B53BE11} = {61174C54-736A-4CAF-8614-F2A436AACE5F}
+		{6DE06025-129A-4883-8E67-07B6BBF50AC0} = {61174C54-736A-4CAF-8614-F2A436AACE5F}
+		{A391B43A-EE00-4D56-8A5C-67ABBCC74AC6} = {61174C54-736A-4CAF-8614-F2A436AACE5F}
+		{1C9537C7-1FF6-4621-BEC7-BCC4544ABE07} = {A668E67E-3998-44CB-8FAF-1E177B3C649B}
+	EndGlobalSection
+EndGlobal

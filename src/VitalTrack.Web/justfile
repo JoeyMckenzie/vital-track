@@ -1,0 +1,5 @@
+default: watch
+
+# Runs the local dev server in watch mode
+watch:
+    dotnet watch run

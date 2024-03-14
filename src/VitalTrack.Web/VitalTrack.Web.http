@@ -1,0 +1,5 @@
+@VitalTrack.BaseUrl = http://localhost:5029
+
+GET {{VitalTrack.BaseUrl}}/players/briv/info
+Accept: application/json
+
