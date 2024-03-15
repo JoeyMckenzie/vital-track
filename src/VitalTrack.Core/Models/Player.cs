@@ -1,4 +1,5 @@
 using System.Text.Json;
+using VitalTrack.Core.Domain;
 
 namespace VitalTrack.Core.Models;
 

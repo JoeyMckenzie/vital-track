@@ -1,4 +1,4 @@
-namespace VitalTrack.Core;
+namespace VitalTrack.Core.Domain;
 
 /// <summary>
 ///     Represents an API request to health the player's current health.

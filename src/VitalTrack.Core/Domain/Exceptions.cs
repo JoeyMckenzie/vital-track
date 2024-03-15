@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace VitalTrack.Core;
+namespace VitalTrack.Core.Domain;
 
 public class VitalTrackHttpException : Exception
 {

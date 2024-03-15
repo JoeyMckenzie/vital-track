@@ -1,5 +1,6 @@
 using System.Net;
 using VitalTrack.Core;
+using VitalTrack.Core.Domain;
 using VitalTrack.Core.Models;
 using VitalTrack.Core.Services;
 
@@ -8,7 +9,7 @@ namespace VitalTrack.Infrastructure.Services;
 /// <inheritdoc />
 public class HitPointManager(IPlayerRepository playerRepository) : IHitPointManager
 {
-    public async Task<VitalTrackCoreResponse<PlayerState>> DealDamageAsync(
+    public async Task<VitalTrackResponse<PlayerState>> DealDamageAsync(
         string playerName,
         HitPointModifierRequest request,
         CancellationToken cancellationToken
@@ -18,10 +19,10 @@ public class HitPointManager(IPlayerRepository playerRepository) : IHitPointMana
 
         player!.DealDamage(request.DamageType ?? string.Empty, request.Amount ?? 0);
 
-        return new VitalTrackCoreResponse<PlayerState>(player.State, HttpStatusCode.OK);
+        return new VitalTrackResponse<PlayerState>(player.State, HttpStatusCode.OK);
     }
 
-    public async Task<VitalTrackCoreResponse<PlayerState>> HealHitPointsAsync(
+    public async Task<VitalTrackResponse<PlayerState>> HealHitPointsAsync(
         string playerName,
         int amount,
         CancellationToken cancellationToken
@@ -31,10 +32,10 @@ public class HitPointManager(IPlayerRepository playerRepository) : IHitPointMana
 
         player!.Heal(amount);
 
-        return new VitalTrackCoreResponse<PlayerState>(player.State, HttpStatusCode.OK);
+        return new VitalTrackResponse<PlayerState>(player.State, HttpStatusCode.OK);
     }
 
-    public async Task<VitalTrackCoreResponse<PlayerState>> AddTemporaryHitPoints(
+    public async Task<VitalTrackResponse<PlayerState>> AddTemporaryHitPoints(
         string playerName,
         int amount,
         CancellationToken cancellationToken
@@ -44,6 +45,6 @@ public class HitPointManager(IPlayerRepository playerRepository) : IHitPointMana
 
         player!.AddTemporaryHitPoints(amount);
 
-        return new VitalTrackCoreResponse<PlayerState>(player.State, HttpStatusCode.OK);
+        return new VitalTrackResponse<PlayerState>(player.State, HttpStatusCode.OK);
     }
 }

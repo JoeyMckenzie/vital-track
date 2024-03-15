@@ -1,3 +1,4 @@
+using VitalTrack.Core.Domain;
 using VitalTrack.Core.Models;
 
 namespace VitalTrack.Core.Services;
@@ -15,7 +16,7 @@ public interface IHitPointManager
     /// <param name="request">Damage request context.</param>
     /// <param name="cancellationToken">Default cancellation context.</param>
     /// <returns>OK, if the damage was successfully dealt.</returns>
-    Task<VitalTrackCoreResponse<PlayerState>> DealDamageAsync(
+    Task<VitalTrackResponse<PlayerState>> DealDamageAsync(
         string playerName,
         HitPointModifierRequest request,
         CancellationToken cancellationToken
@@ -29,7 +30,7 @@ public interface IHitPointManager
     /// <param name="request">Damage request context.</param>
     /// <param name="cancellationToken">Default cancellation context.</param>
     /// <returns>OK, if the damage was successfully dealt.</returns>
-    Task<VitalTrackCoreResponse<PlayerState>> HealHitPointsAsync(
+    Task<VitalTrackResponse<PlayerState>> HealHitPointsAsync(
         string playerName,
         int amount,
         CancellationToken cancellationToken
@@ -43,7 +44,7 @@ public interface IHitPointManager
     /// <param name="request">Damage request context.</param>
     /// <param name="cancellationToken">Default cancellation context.</param>
     /// <returns>OK, if the damage was successfully dealt.</returns>
-    Task<VitalTrackCoreResponse<PlayerState>> AddTemporaryHitPoints(
+    Task<VitalTrackResponse<PlayerState>> AddTemporaryHitPoints(
         string playerName,
         int amount,
         CancellationToken cancellationToken

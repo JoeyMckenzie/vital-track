@@ -1,5 +1,6 @@
 using System.Net;
 using VitalTrack.Core;
+using VitalTrack.Core.Domain;
 using VitalTrack.Core.Services;
 
 namespace VitalTrack.Web.Concerns;
