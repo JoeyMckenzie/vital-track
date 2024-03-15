@@ -1,5 +1,5 @@
 using System.Net;
-using VitalTrack.Core;
+
 using VitalTrack.Core.Domain;
 using VitalTrack.Core.Services;
 
@@ -8,15 +8,8 @@ namespace VitalTrack.Web.Concerns;
 /// <summary>
 ///     An endpoint filter for asserting the player exists for specific API endpoints.
 /// </summary>
-public class ExistingPlayerFilter : IEndpointFilter
+public class ExistingPlayerFilter(IPlayerRepository playerRepository) : IEndpointFilter
 {
-    private readonly IPlayerRepository _playerRepository;
-
-    public ExistingPlayerFilter(IPlayerRepository playerRepository)
-    {
-        _playerRepository = playerRepository;
-    }
-
     public async ValueTask<object?> InvokeAsync(
         EndpointFilterInvocationContext context,
         EndpointFilterDelegate next
@@ -25,7 +18,7 @@ public class ExistingPlayerFilter : IEndpointFilter
         // A bit of ASP.NET magic here, as long as we except the player name as the first
         // route argument, we'll be able to quickly verify the player exists on all routes
         var playerName = context.GetArgument<string>(0);
-        var playerExists = await _playerRepository.PlayerExistsAsync(playerName);
+        var playerExists = await playerRepository.PlayerExistsAsync(playerName);
 
         if (!playerExists)
         {
