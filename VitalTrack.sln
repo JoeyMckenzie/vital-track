@@ -25,6 +25,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{3AF11F
 		fly.toml = fly.toml
 		README.md = README.md
 		.github\workflows\ci.yml = .github\workflows\ci.yml
+		Vital Track.postman_collection.json = Vital Track.postman_collection.json
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VitalTrack.Core.Tests", "tests\VitalTrack.Core.Tests\VitalTrack.Core.Tests.csproj", "{1C9537C7-1FF6-4621-BEC7-BCC4544ABE07}"

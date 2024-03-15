@@ -22,6 +22,121 @@ dotnet run --project src/VitalTrack.Web/VitalTrack.Web.csproj
 dotnet test
 ```
 
+There are four endpoints available, with an example of each below (assuming you have `jq` installed on your machine):
+
+```bash
+# The /api/player/:name/info endpoint returns the current player state
+curl --location 'http://localhost:5029/api/player/briv/info' | jq '.'
+
+{
+  "data": {
+    "name": "Briv",
+    "level": 5,
+    "hitPoints": 25,
+    "temporaryHitPoints": 0,
+    "classes": [
+      // player classes...
+    ],
+    "stats": {
+      // player stats...
+    },
+    "items": [
+      // player items...
+    ],
+    "defenses": [
+      // player defenses...
+    ]
+  }
+}
+
+# /api/player/:name/damage endpoint accepts a damage type and value, returning the updated player state
+curl --location 'http://localhost:5029/api/player/briv/damage' \
+     --header 'Content-Type: application/json' \
+     --data '{
+        "damageType": "slashing",
+        "amount": 12
+     }' | jq '.'
+     
+{
+  "data": {
+    "name": "Briv",
+    "level": 5,
+    "hitPoints": 19, // Briv has resistance to slashing, so only half damage is taken
+    "temporaryHitPoints": 0,
+    "classes": [
+      // player classes...
+    ],
+    "stats": {
+      // player stats...
+    },
+    "items": [
+      // player items...
+    ],
+    "defenses": [
+      // player defenses...
+    ]
+  }
+}
+
+# /api/player/:name/temp endpoint accepts health modifier value, returning the updated player state with the temporary health
+curl --location 'http://localhost:5029/api/player/briv/damage' \
+     --header 'Content-Type: application/json' \
+     --data '{
+        "amount": 10
+     }' | jq '.'
+     
+{
+  "data": {
+    "name": "Briv",
+    "level": 5,
+    "hitPoints": 19,
+    "temporaryHitPoints": 10,
+    "classes": [
+      // player classes...
+    ],
+    "stats": {
+      // player stats...
+    },
+    "items": [
+      // player items...
+    ],
+    "defenses": [
+      // player defenses...
+    ]
+  }
+}
+
+# /api/player/:name/heal endpoint accepts health modifier value, returning the updated player state with increased health
+curl --location 'http://localhost:5029/api/player/briv/damage' \
+     --header 'Content-Type: application/json' \
+     --data '{
+        "amount": 10
+     }' | jq '.'
+     
+{
+  "data": {
+    "name": "Briv",
+    "level": 5,
+    "hitPoints": 25, // no overhealing allowed, so only heal back to the original health pool cap
+    "temporaryHitPoints": 10,
+    "classes": [
+      // player classes...
+    ],
+    "stats": {
+      // player stats...
+    },
+    "items": [
+      // player items...
+    ],
+    "defenses": [
+      // player defenses...
+    ]
+  }
+}
+```
+
+For convenience, a Postman collection has been included containing requests to all local endpoints.
+
 I'm a fan of [`justfile`s](https://just.systems) as I'm not smart enough to understand `make`, so if you happen
 to have `just` installed (if you have Rust installed, a simple `cargo install --locked just` will do the trick),
 the local dev server is set as the default `just` target.
@@ -38,6 +153,7 @@ The solution contains three projects:
 To stay true to the spirit of the take home and keeping myself honest to get this done
 within a few hours (about 4 hours of implementation, an hour for documentation), I'll outline a few of the design
 decisions I've deliberately taken.
+
 I lean heavily into the YAGNI principle as I grow old, embrace my elder developer curmudgeon-ness and
 have cut a few corners in the sake of time, as my near one year old has drastically taken away
 much of my free time these days:

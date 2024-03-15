@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
+
 using VitalTrack.Core;
+using VitalTrack.Core.Models;
 using VitalTrack.Core.Services;
 
 namespace VitalTrack.Web;
@@ -95,9 +97,10 @@ public static class Endpoints
     )
     {
         var player = await playerRepository.FindPlayerAsync(playerName, cancellationToken);
+        var response = new VitalTrackCoreResponse<PlayerState>(player!.State);
 
         // We can assert non-nullability here as the endpoint filter validates the player exists
-        return Results.Ok(player!.State);
+        return Results.Ok(response);
     }
 
     /// <summary>

@@ -1,0 +1,157 @@
+{
+	"info": {
+		"_postman_id": "ff37dee4-efd7-4d45-98c9-fbe093a92299",
+		"name": "Vital Track",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4897509"
+	},
+	"item": [
+		{
+			"name": "Health",
+			"item": [
+				{
+					"name": "Damage",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"damageType\": \"fire\",\n    \"amount\": 12\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/player/briv/damage",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"player",
+								"briv",
+								"damage"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Heal",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"amount\": 10\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/player/briv/damage",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"player",
+								"briv",
+								"damage"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Temporary hit points",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"amount\": 10\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/player/briv/temp",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"player",
+								"briv",
+								"temp"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Info",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/player/briv/damage",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"player",
+						"briv",
+						"damage"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://localhost:5029/api",
+			"type": "string"
+		}
+	]
+}

@@ -1,4 +1,5 @@
 using System.Net;
+using System.Text.Json.Serialization;
 
 namespace VitalTrack.Core;
 
@@ -9,6 +10,7 @@ namespace VitalTrack.Core;
 /// <typeparam name="T">Data type of the serialized response.</typeparam>
 public readonly record struct VitalTrackCoreResponse<T>(
     T Data,
-    HttpStatusCode StatusCode,
-    string Message = "The operation was successful."
+    [property: JsonIgnore] HttpStatusCode StatusCode = HttpStatusCode.OK,
+    [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    string? Message = null
 );
