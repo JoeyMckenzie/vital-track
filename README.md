@@ -79,7 +79,7 @@ curl --location 'http://localhost:5029/api/player/briv/damage' \
 }
 
 # /api/player/:name/temp endpoint accepts health modifier value, returning the updated player state with the temporary health
-curl --location 'http://localhost:5029/api/player/briv/damage' \
+curl --location 'http://localhost:5029/api/player/briv/temp' \
      --header 'Content-Type: application/json' \
      --data '{
         "amount": 10
@@ -107,7 +107,7 @@ curl --location 'http://localhost:5029/api/player/briv/damage' \
 }
 
 # /api/player/:name/heal endpoint accepts health modifier value, returning the updated player state with increased health
-curl --location 'http://localhost:5029/api/player/briv/damage' \
+curl --location 'http://localhost:5029/api/player/briv/heal' \
      --header 'Content-Type: application/json' \
      --data '{
         "amount": 10
