@@ -3,9 +3,10 @@ ARG DOTNET_OS_VERSION="-alpine"
 ARG DOTNET_SDK_VERSION=8.0
 
 FROM mcr.microsoft.com/dotnet/sdk:${DOTNET_SDK_VERSION}${DOTNET_OS_VERSION} AS build
+
 WORKDIR /src
 
-# copy everything
+# Build stage 1: copy everything over and build
 COPY ./VitalTrack.sln ./
 COPY ./src ./src
 COPY ./tests ./tests
@@ -20,7 +21,7 @@ RUN dotnet restore
 # build and publish a release
 RUN dotnet publish -c Release -o /app
 
-# final stage/image
+# Build stage 2: 
 FROM mcr.microsoft.com/dotnet/aspnet:${DOTNET_SDK_VERSION}
 
 ENV ASPNETCORE_URLS http://+:8080
