@@ -12,7 +12,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddVitalTrackCore();
 builder.Services.AddVitalTrackInfrastructure(builder.Configuration.GetConnectionString("Postgres"));
-builder.Services.AddProblemDetails();
+builder.Services.AddProblemDetails(); // TODO: Probably worth it to add custom problem details here eventually
 var app = builder.Build();
 
 await using var providerScope = app.Services.CreateAsyncScope();

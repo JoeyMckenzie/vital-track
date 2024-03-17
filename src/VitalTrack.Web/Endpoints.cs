@@ -1,8 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
-using VitalTrack.Core;
+
 using VitalTrack.Core.Domain;
 using VitalTrack.Core.Models;
 using VitalTrack.Core.Services;
+using VitalTrack.Web.Concerns;
 
 namespace VitalTrack.Web;
 
@@ -112,17 +113,18 @@ public static class Endpoints
         group
             .MapGet("info", GetCurrentPlayerInfo)
             .WithName("Retrieve current health information for the player")
-            .WithOpenApi();
+            .WithOpenApi()
+            .AddEndpointFilter<HitPointModificationValidationFilter>();
 
         group
             .MapPost("damage", DealDamageAsync)
             .WithName("Deal damage to player's health")
-            .WithOpenApi();
+            .AddEndpointFilter<HitPointModificationValidationFilter>();
 
         group
             .MapPost("heal", HealCurrentHealthAsync)
             .WithName("Heal a player's current health")
-            .WithOpenApi();
+            .AddEndpointFilter<HitPointModificationValidationFilter>();
 
         group
             .MapPost("temp", AddTemporaryHealth)
