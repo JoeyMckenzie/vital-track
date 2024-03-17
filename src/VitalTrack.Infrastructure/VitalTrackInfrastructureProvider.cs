@@ -1,5 +1,8 @@
 using Dapper;
+
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+
 using VitalTrack.Core.Services;
 using VitalTrack.Infrastructure.Services;
 
@@ -20,6 +23,9 @@ public static class VitalTrackInfrastructureProvider
         ArgumentException.ThrowIfNullOrWhiteSpace(pgsqlConnectionString);
         DefaultTypeMap.MatchNamesWithUnderscores = true;
         services.AddScoped<IHitPointManager, HitPointManager>();
-        services.AddScoped<IPlayerRepository>(_ => new PlayerRepository(pgsqlConnectionString));
+        services.AddScoped<IPlayerRepository>(provider => new PlayerRepository(
+            pgsqlConnectionString,
+            provider.GetRequiredService<ILogger<PlayerRepository>>()
+        ));
     }
 }

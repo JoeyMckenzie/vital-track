@@ -6,6 +6,12 @@ CREATE TABLE players
     character_name VARCHAR(255) NOT NULL,
     hit_points     INTEGER      NOT NULL,
     level          INTEGER      NOT NULL,
+    strength       INTEGER      NOT NULL,
+    dexterity      INTEGER      NOT NULL,
+    constitution   INTEGER      NOT NULL,
+    intelligence   INTEGER      NOT NULL,
+    wisdom         INTEGER      NOT NULL,
+    charisma       INTEGER      NOT NULL,
     created_at     TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at     TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT idx_player_name UNIQUE (character_name)
@@ -37,28 +43,10 @@ CREATE TABLE player_class
     CONSTRAINT fk_class_id FOREIGN KEY (class_id) REFERENCES classes (id)
 );
 
-DROP TABLE IF EXISTS player_stats CASCADE;
-CREATE TABLE player_stats
-(
-    id           SERIAL PRIMARY KEY,
-    player_id    INTEGER   NOT NULL,
-    strength     INTEGER   NOT NULL,
-    dexterity    INTEGER   NOT NULL,
-    constitution INTEGER   NOT NULL,
-    intelligence INTEGER   NOT NULL,
-    wisdom       INTEGER   NOT NULL,
-    charisma     INTEGER   NOT NULL,
-    created_at   TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at   TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    -- We can index on the player ID as the player-stats is 1-to-1
-    CONSTRAINT idx_player_id UNIQUE (player_id),
-    CONSTRAINT fk_player_id FOREIGN KEY (player_id) REFERENCES players (id)
-);
-
 DROP TABLE IF EXISTS items;
 CREATE TABLE items
 (
-    id              UUID PRIMARY KEY,
+    id              SERIAL PRIMARY KEY,
     item_name       VARCHAR(255) NOT NULL,
     affected_object VARCHAR(255) NOT NULL,
     affected_value  VARCHAR(255) NOT NULL,
@@ -72,7 +60,7 @@ CREATE TABLE items
 DROP TABLE IF EXISTS player_items CASCADE;
 CREATE TABLE player_items
 (
-    id         UUID PRIMARY KEY,
+    id         SERIAL PRIMARY KEY,
     player_id  INTEGER   NOT NULL,
     item_id    INTEGER   NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -90,10 +78,26 @@ CREATE TABLE player_items
 DROP TABLE IF EXISTS player_defenses CASCADE;
 CREATE TABLE player_defenses
 (
-    id         UUID PRIMARY KEY,
+    id         SERIAL PRIMARY KEY,
     player_id  INTEGER      NOT NULL,
     type       VARCHAR(255) NOT NULL,
     defense    VARCHAR(255) NOT NULL,
     created_at TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT fk_player_id_defenses FOREIGN KEY (player_id) REFERENCES players (id)
 );
+
+-- While we're at it, seed the class reference data
+INSERT INTO classes (class_name)
+VALUES ('barbarian'),
+       ('bard'),
+       ('cleric'),
+       ('druid'),
+       ('fighter'),
+       ('monk'),
+       ('paladin'),
+       ('ranger'),
+       ('rogue'),
+       ('sorcerer'),
+       ('warlock'),
+       ('wizard');
+

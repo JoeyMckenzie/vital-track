@@ -1,4 +1,6 @@
 using System.Text.Json;
+
+using VitalTrack.Core.Concerns;
 using VitalTrack.Core.Domain;
 
 namespace VitalTrack.Core.Models;
@@ -7,7 +9,7 @@ namespace VitalTrack.Core.Models;
 ///     Represents a player within the Vital Track system responsible for
 ///     managing internal player state and actionable state transitions.
 /// </summary>
-public class Player
+public class Player : ILoggable
 {
     /// <summary>
     ///     A player's health cap is the maximum amount of HP available to the player.
@@ -16,16 +18,28 @@ public class Player
     /// </summary>
     private readonly int _healthCap;
 
-    private Player(int healthCap)
+    private Player(int healthCap, int? id = null)
     {
         _healthCap = healthCap;
+        Id = id;
     }
+
+    public int? Id { get; }
 
     /// <summary>
     ///     Internal player state, containing all player stats, items, and defenses.
     ///     State transitions are internal and cannot be performed outside of an action.
     /// </summary>
     public PlayerState State { get; private set; }
+
+    /// <inheritdoc />
+    public string IntoLog()
+    {
+        return $"""
+                {nameof(State.Name)}: {State.Name}
+                {nameof(State.Level)}: {State.Level}
+                """;
+    }
 
     /// <summary>
     ///     Deals damage to the player, producing a new internal state with reduced hit points. If the damage a player takes
@@ -123,7 +137,6 @@ public class Player
     /// </summary>
     /// <param name="filePath">Local filepath to the JSON file.</param>
     /// <param name="cancellationToken">Default cancellation context.</param>
-    /// <returns>Constructed player object.</returns>
     /// <exception cref="VitalTrackException">Throws when the file path is not found.</exception>
     public static async Task<Player> FromTemplateAsync(
         string filePath,
@@ -153,7 +166,6 @@ public class Player
     ///     Constructs a player object from a player state.
     /// </summary>
     /// <param name="state">Current player state.</param>
-    /// <returns>Constructed player object.</returns>
     public static Player FromState(PlayerState state)
     {
         return new Player(state.HitPoints) { State = state };
@@ -164,7 +176,6 @@ public class Player
     /// </summary>
     /// <param name="damageType">Damage type on the request.</param>
     /// <param name="originalDamageValue">Damage amount on the request.</param>
-    /// <returns>Adjusted damage value.</returns>
     private int CalculateAdjustedDamageValue(string damageType, int originalDamageValue)
     {
         var defensibleDamage = State.Defenses.FirstOrDefault(d =>
@@ -194,7 +205,6 @@ public class Player
     ///     beyond what they may have been intended to improve upon.
     /// </summary>
     /// <param name="playerState">Original player state.</param>
-    /// <returns>Newly computed player state.</returns>
     private static PlayerState AdjustStatsForApplicableItems(PlayerState playerState)
     {
         // If we don't have any items, there's no adjustments to the player's current state
