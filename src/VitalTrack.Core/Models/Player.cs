@@ -1,5 +1,4 @@
 using System.Text.Json;
-
 using VitalTrack.Core.Concerns;
 using VitalTrack.Core.Domain;
 
@@ -36,9 +35,9 @@ public class Player : ILoggable
     public string IntoLog()
     {
         return $"""
-                {nameof(State.Name)}: {State.Name}
-                {nameof(State.Level)}: {State.Level}
-                """;
+            {nameof(State.Name)}: {State.Name}
+            {nameof(State.Level)}: {State.Level}
+            """;
     }
 
     /// <summary>

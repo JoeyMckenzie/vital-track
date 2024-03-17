@@ -1,8 +1,6 @@
 using Dapper;
-
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-
 using VitalTrack.Core.Services;
 using VitalTrack.Infrastructure.Services;
 

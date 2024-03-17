@@ -1,11 +1,7 @@
 using System.Data;
-
 using Dapper;
-
 using Microsoft.Extensions.Logging;
-
 using Npgsql;
-
 using VitalTrack.Core.Models;
 using VitalTrack.Core.Services;
 using VitalTrack.Infrastructure.Entities;
@@ -82,7 +78,13 @@ public class PlayerRepository : IPlayerRepository
                     INSERT INTO player_class (player_id, class_id, hit_dice_value, class_level)
                     VALUES (@playerId, (SELECT id FROM classes WHERE class_name = @ClassName), @HitDiceValue, @ClassLevel)
                     """,
-                    new { playerId, ClassName = playerClass.Name, playerClass.HitDiceValue, playerClass.ClassLevel }
+                    new
+                    {
+                        playerId,
+                        ClassName = playerClass.Name,
+                        playerClass.HitDiceValue,
+                        playerClass.ClassLevel
+                    }
                 );
             }
 
@@ -96,7 +98,12 @@ public class PlayerRepository : IPlayerRepository
                     INSERT INTO player_defenses (player_id, type, defense)
                     VALUES (@playerId, @DefenseType, @DefenseName)
                     """,
-                    new { playerId, DefenseType = playerDefense.Type, DefenseName = playerDefense.Defense }
+                    new
+                    {
+                        playerId,
+                        DefenseType = playerDefense.Type,
+                        DefenseName = playerDefense.Defense
+                    }
                 );
             }
 
@@ -161,13 +168,13 @@ public class PlayerRepository : IPlayerRepository
     public async Task<Player?> FindPlayerAsync(string name, CancellationToken cancellationToken)
     {
         const string sql = """
-                           SELECT *
-                           FROM players p
-                           JOIN public.player_defenses pd on p.id = pd.player_id
-                           JOIN public.player_items pi on p.id = pi.player_id
-                           join public.player_class pc on p.id = pc.player_id
-                           WHERE p.character_name = @Name
-                           """;
+            SELECT *
+            FROM players p
+            JOIN public.player_defenses pd on p.id = pd.player_id
+            JOIN public.player_items pi on p.id = pi.player_id
+            join public.player_class pc on p.id = pc.player_id
+            WHERE p.character_name = @Name
+            """;
 
         var player = await _connection.QueryAsync<
             PlayerEntity,
