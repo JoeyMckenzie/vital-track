@@ -158,16 +158,15 @@ I lean heavily into the YAGNI principle as I grow old, embrace my elder develope
 have cut a few corners in the sake of time, as my near one year old has drastically taken away
 much of my free time these days:
 
-### No external persistence
+### Persistence with Postgres
 
-Using the provided player template, I've skipped storage persistence for the time being
-as the use case is simple enough to warrant in-memory persistence. On service startup, the
-`briv.json` player template file is loaded into memory, with a "repository" (air quotes intended)
-around the in-memory storage layer (read: nothing but a simple `List<Player>` cached on repository
-instantiation).
+Using the provided player template, my storage layer of choice is Postgres. Though an argument could be made for using
+in-memory storage (as was the original implementation), I wanted to showcase Dapper a bit and spread the good word that
+EF is not the end-all-be-all for data access within the .NET ecosystem.
 
-On [application start](https://github.com/joeymckenzie/vital-track), we'll bootstrap the services
-within the service provider, and seed the player template within the "database":
+On [application start](https://github.com/joeymckenzie/vital-track), we'll bootstrap the services within the service
+provider, and seed the player template
+within the database:
 
 ```csharp
 logger.LogInformation("API routes initialized, seeding players from template");
@@ -183,15 +182,8 @@ logger.LogInformation("Seeding player from template path {playerTemplatePath}", 
 await playerRepository.SeedPlayerFromTemplateAsync(playerTemplatePath);
 ```
 
-API Operations on the player are all done within memory and will *not persist* between service restarts.
-If I had more time, here's what I **would** have done:
-
-- Spun up a Postgres SQL database using [neon.tech](https://neon.tech)
-- Defined a `dev` branch for local development, with the `main` branch for the production deployment unit
-- Seeded the database on startup from the `briv.json` file
-- Brought in [Npgsql](https://www.npgsql.org/) as my Postgres SQL driver of choice
-- Slapped Dapper on top of it to facilitate data access (EF is fine, but for this simple use case, Dapper is more than
-  enough)
+I'm utilizing [Npgsql](https://www.npgsql.org/) as my Postgres SQL driver of choice as it's widely supported and the
+only driver I trust in terms of Postgres and .NET.
 
 ### Thin controllers, fat models
 
@@ -228,3 +220,7 @@ There are two core services, the hit point manager and the player repository.
 I'm a big fan of [xUnit](https://xunit.net/) and [FluentAssertions](https://fluentassertions.com/), and you'll find
 the tests to follow a standard arrange/act/assert pattern. For the sake of time, only the internal core business logic
 is tested, though when my 11 month old falls asleep, I may actually get the time to write some API integration tests.
+
+## TODO
+
+Should probably Docker-ize the local dev environment at some point, but I'll save that as a fast follow item.

@@ -44,6 +44,50 @@ public readonly record struct PlayerState
     ///     Defenses the player has, affecting damage intake.
     /// </summary>
     public required IEnumerable<PlayerDefense> Defenses { get; init; }
+
+    /// <summary>
+    ///     Adjusts any player stats based on the currently held items based on the player template.
+    ///     Note, this is NOT an idempotent state transition, so multiple calls will increase stats
+    ///     beyond what they may have been intended to improve upon.
+    /// </summary>
+    /// <returns>Newly computed player state.</returns>
+    public PlayerState AdjustStatsForApplicableItems()
+    {
+        // If we don't have any items, there's no adjustments to the player's current state
+        if (!Items.Any())
+        {
+            return this;
+        }
+
+        // Roll through each item and compute the new state based on the item's affected modifiers
+        foreach (var item in Items)
+        {
+            if (
+                string.Equals(
+                    item.Modifier.AffectedObject,
+                    "stats",
+                    StringComparison.CurrentCultureIgnoreCase
+                )
+            )
+            {
+                var playerState = item.Modifier.AffectedValue switch
+                {
+                    // TODO: Only doing constitution for now, but should eventually be fleshed out for others
+                    "constitution"
+                        => this with
+                        {
+                            Stats = Stats with
+                            {
+                                Constitution = Stats.Constitution + item.Modifier.Value
+                            }
+                        },
+                    _ => this
+                };
+            }
+        }
+
+        return this;
+    }
 }
 
 public readonly record struct PlayerClass(string Name, int HitDiceValue, int ClassLevel);

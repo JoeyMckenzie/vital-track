@@ -6,7 +6,7 @@ namespace VitalTrack.Core.Services;
 ///     A player storage repository for performing simple CRUD operations on a player. In a more real world context,
 ///     this would be a thin layer on top of a Dapper-like ORM, or a DbContext with DbSet<Player> in the case of EF Core.
 /// </summary>
-public interface IPlayerRepository
+public interface IPlayerRepository : IAsyncDisposable
 {
     /// <summary>
     ///     Constructs a player instance from a JSON template file and attempts to add them to in-memory storage.
@@ -34,4 +34,12 @@ public interface IPlayerRepository
     /// <param name="cancellationToken">Default cancellation context.</param>
     /// <returns>Player model, if they exist.</returns>
     Task<Player?> FindPlayerAsync(string name, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    ///     Updates a player based on the newly computed player state.
+    /// </summary>
+    /// <param name="state">Current player state.</param>
+    /// <param name="cancellationToken">Default cancellation context.</param>
+    /// <returns>OK, if the update was successful.</returns>
+    Task UpdatePlayerAsync(PlayerState state, CancellationToken cancellationToken = default);
 }
