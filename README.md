@@ -221,3 +221,7 @@ There are two core services, the hit point manager and the player repository.
 I'm a big fan of [xUnit](https://xunit.net/) and [FluentAssertions](https://fluentassertions.com/), and you'll find
 the tests to follow a standard arrange/act/assert pattern. For the sake of time, only the internal core business logic
 is tested, though when my 11 month old falls asleep, I may actually get the time to write some API integration tests.
+
+## TODO
+
+Should probably Docker-ize the local dev environment at some point, but I'll save that as a fast follow item.
