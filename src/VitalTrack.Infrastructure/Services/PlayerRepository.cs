@@ -1,11 +1,7 @@
 using System.Data;
-
 using Dapper;
-
 using Microsoft.Extensions.Logging;
-
 using Npgsql;
-
 using VitalTrack.Core.Models;
 using VitalTrack.Core.Services;
 using VitalTrack.Infrastructure.Aggregates;
@@ -93,7 +89,13 @@ public class PlayerRepository : IPlayerRepository
                     INSERT INTO player_class (player_id, class_id, hit_dice_value, class_level)
                     VALUES (@playerId, (SELECT id FROM classes WHERE class_name = @ClassName), @HitDiceValue, @ClassLevel)
                     """,
-                    new { playerId, ClassName = playerClass.Name, playerClass.HitDiceValue, playerClass.ClassLevel }
+                    new
+                    {
+                        playerId,
+                        ClassName = playerClass.Name,
+                        playerClass.HitDiceValue,
+                        playerClass.ClassLevel
+                    }
                 );
             }
 
@@ -107,7 +109,12 @@ public class PlayerRepository : IPlayerRepository
                     INSERT INTO player_defenses (player_id, type, defense)
                     VALUES (@playerId, @DefenseType, @DefenseName)
                     """,
-                    new { playerId, DefenseType = playerDefense.Type, DefenseName = playerDefense.Defense }
+                    new
+                    {
+                        playerId,
+                        DefenseType = playerDefense.Type,
+                        DefenseName = playerDefense.Defense
+                    }
                 );
             }
 
@@ -174,37 +181,37 @@ public class PlayerRepository : IPlayerRepository
         // We're spreading character information across a few tables to keep our DBAs happy in a developer's attempt at poor man's normal form
         // We'll build the player aggregate based on the player information, defenses, items, and class table and combine them within our model mapping
         const string sql = """
-                           SELECT p.id,
-                                  p.character_name,
-                                  p.hit_points,
-                                  p.health_cap,
-                                  p.temporary_hit_points,
-                                  p.level,
-                                  p.strength,
-                                  p.dexterity,
-                                  p.constitution,
-                                  p.intelligence,
-                                  p.wisdom,
-                                  p.charisma,
-                                  pd.id as defense_id,
-                                  pd.defense,
-                                  pd.type,
-                                  i.id as item_id,
-                                  i.item_name,
-                                  i.affected_object,
-                                  i.affected_value,
-                                  c.id as class_id,
-                                  c.class_name,
-                                  pc.hit_dice_value,
-                                  pc.class_level
-                           FROM players p
-                           JOIN player_defenses pd ON p.id = pd.player_id
-                           JOIN player_items pi ON p.id = pi.player_id
-                           JOIN items i ON pi.item_id = i.id
-                           JOIN player_class pc ON p.id = pc.player_id
-                           JOIN classes c ON c.id = pc.class_id
-                           WHERE p.character_name = @Name
-                           """;
+            SELECT p.id,
+                   p.character_name,
+                   p.hit_points,
+                   p.health_cap,
+                   p.temporary_hit_points,
+                   p.level,
+                   p.strength,
+                   p.dexterity,
+                   p.constitution,
+                   p.intelligence,
+                   p.wisdom,
+                   p.charisma,
+                   pd.id as defense_id,
+                   pd.defense,
+                   pd.type,
+                   i.id as item_id,
+                   i.item_name,
+                   i.affected_object,
+                   i.affected_value,
+                   c.id as class_id,
+                   c.class_name,
+                   pc.hit_dice_value,
+                   pc.class_level
+            FROM players p
+            JOIN player_defenses pd ON p.id = pd.player_id
+            JOIN player_items pi ON p.id = pi.player_id
+            JOIN items i ON pi.item_id = i.id
+            JOIN player_class pc ON p.id = pc.player_id
+            JOIN classes c ON c.id = pc.class_id
+            WHERE p.character_name = @Name
+            """;
 
         // A neat Dapper trick I've learned over the years when model mapping aggregate queries, we can assign
         // the aggregate on the first model mapping pass to use in subsequent enumerator visits of the result set
@@ -251,7 +258,12 @@ public class PlayerRepository : IPlayerRepository
                 temporary_hit_points = @TemporaryHitPoints
             WHERE character_name = @Name
             """,
-            new { CurrentHitPoints = state.HitPoints, state.TemporaryHitPoints, state.Name }
+            new
+            {
+                CurrentHitPoints = state.HitPoints,
+                state.TemporaryHitPoints,
+                state.Name
+            }
         );
     }
 

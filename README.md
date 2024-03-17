@@ -183,8 +183,7 @@ await playerRepository.SeedPlayerFromTemplateAsync(playerTemplatePath);
 ```
 
 I'm utilizing [Npgsql](https://www.npgsql.org/) as my Postgres SQL driver of choice as it's widely supported and the
-only
-driver I trust in terms of Postgres and .NET.
+only driver I trust in terms of Postgres and .NET.
 
 ### Thin controllers, fat models
 
