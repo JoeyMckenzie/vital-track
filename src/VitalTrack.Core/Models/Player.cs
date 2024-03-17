@@ -150,6 +150,16 @@ public class Player
     }
 
     /// <summary>
+    ///     Constructs a player object from a player state.
+    /// </summary>
+    /// <param name="state">Current player state.</param>
+    /// <returns>Constructed player object.</returns>
+    public static Player FromState(PlayerState state)
+    {
+        return new Player(state.HitPoints) { State = state };
+    }
+
+    /// <summary>
     ///     Calculates the damage amount a player should take based on the damage type and the player's defenses.
     /// </summary>
     /// <param name="damageType">Damage type on the request.</param>

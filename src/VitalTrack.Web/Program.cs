@@ -11,9 +11,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddVitalTrackCore();
-builder.Services.AddVitalTrackInfrastructure();
+builder.Services.AddVitalTrackInfrastructure(builder.Configuration.GetConnectionString("Postgres"));
 builder.Services.AddProblemDetails();
-
 var app = builder.Build();
 
 await using var providerScope = app.Services.CreateAsyncScope();
