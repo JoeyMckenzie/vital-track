@@ -74,13 +74,7 @@ public readonly record struct PlayerState
                 {
                     // TODO: Only doing constitution for now, but should eventually be fleshed out for others
                     "constitution"
-                        => this with
-                        {
-                            Stats = Stats with
-                            {
-                                Constitution = Stats.Constitution + item.Modifier.Value
-                            }
-                        },
+                        => this with { Stats = Stats with { Constitution = Stats.Constitution + item.Modifier.Value } },
                     _ => this
                 };
             }

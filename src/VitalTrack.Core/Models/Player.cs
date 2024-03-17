@@ -1,4 +1,5 @@
 using System.Text.Json;
+
 using VitalTrack.Core.Concerns;
 using VitalTrack.Core.Domain;
 
@@ -35,9 +36,9 @@ public class Player : ILoggable
     public string IntoLog()
     {
         return $"""
-            {nameof(State.Name)}: {State.Name}
-            {nameof(State.Level)}: {State.Level}
-            """;
+                {nameof(State.Name)}: {State.Name}
+                {nameof(State.Level)}: {State.Level}
+                """;
     }
 
     /// <summary>
@@ -164,10 +165,11 @@ public class Player : ILoggable
     /// <summary>
     ///     Constructs a player object from a player state.
     /// </summary>
+    /// <param name="healthCap">Original health cap of the player.</param>
     /// <param name="state">Current player state.</param>
-    public static Player FromState(PlayerState state)
+    public static Player FromState(int healthCap, PlayerState state)
     {
-        return new Player(state.HitPoints) { State = state };
+        return new Player(healthCap) { State = state };
     }
 
     /// <summary>

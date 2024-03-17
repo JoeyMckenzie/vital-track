@@ -1,5 +1,3 @@
-using System.Net;
-using VitalTrack.Core;
 using VitalTrack.Core.Domain;
 using VitalTrack.Core.Models;
 using VitalTrack.Core.Services;
@@ -19,7 +17,9 @@ public class HitPointManager(IPlayerRepository playerRepository) : IHitPointMana
 
         player!.DealDamage(request.DamageType ?? string.Empty, request.Amount ?? 0);
 
-        return new VitalTrackResponse<PlayerState>(player.State, HttpStatusCode.OK);
+        await playerRepository.UpdatePlayerAsync(player.State, cancellationToken);
+
+        return new VitalTrackResponse<PlayerState>(player.State);
     }
 
     public async Task<VitalTrackResponse<PlayerState>> HealHitPointsAsync(
@@ -32,7 +32,9 @@ public class HitPointManager(IPlayerRepository playerRepository) : IHitPointMana
 
         player!.Heal(amount);
 
-        return new VitalTrackResponse<PlayerState>(player.State, HttpStatusCode.OK);
+        await playerRepository.UpdatePlayerAsync(player.State, cancellationToken);
+
+        return new VitalTrackResponse<PlayerState>(player.State);
     }
 
     public async Task<VitalTrackResponse<PlayerState>> AddTemporaryHitPoints(
@@ -45,6 +47,8 @@ public class HitPointManager(IPlayerRepository playerRepository) : IHitPointMana
 
         player!.AddTemporaryHitPoints(amount);
 
-        return new VitalTrackResponse<PlayerState>(player.State, HttpStatusCode.OK);
+        await playerRepository.UpdatePlayerAsync(player.State, cancellationToken);
+
+        return new VitalTrackResponse<PlayerState>(player.State);
     }
 }

@@ -2,18 +2,20 @@
 DROP TABLE IF EXISTS players CASCADE;
 CREATE TABLE players
 (
-    id             SERIAL PRIMARY KEY,
-    character_name VARCHAR(255) NOT NULL,
-    hit_points     INTEGER      NOT NULL,
-    level          INTEGER      NOT NULL,
-    strength       INTEGER      NOT NULL,
-    dexterity      INTEGER      NOT NULL,
-    constitution   INTEGER      NOT NULL,
-    intelligence   INTEGER      NOT NULL,
-    wisdom         INTEGER      NOT NULL,
-    charisma       INTEGER      NOT NULL,
-    created_at     TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at     TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    id                   SERIAL PRIMARY KEY,
+    character_name       VARCHAR(255) NOT NULL,
+    hit_points           INTEGER      NOT NULL,
+    health_cap           INTEGER      NOT NULL,
+    temporary_hit_points INTEGER      NOT NULL default 0,
+    level                INTEGER      NOT NULL,
+    strength             INTEGER      NOT NULL,
+    dexterity            INTEGER      NOT NULL,
+    constitution         INTEGER      NOT NULL,
+    intelligence         INTEGER      NOT NULL,
+    wisdom               INTEGER      NOT NULL,
+    charisma             INTEGER      NOT NULL,
+    created_at           TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at           TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT idx_player_name UNIQUE (character_name)
 );
 
