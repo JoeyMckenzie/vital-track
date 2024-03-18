@@ -9,6 +9,9 @@ implementation of the DnD Beyond backend challenge written in C# and .NET. To ge
 clone the project, then from within the root of the project:
 
 ```bash
+# Create your .env file
+mv .env.example .env
+
 # Install dependencies
 dotnet restore
 
@@ -136,6 +139,11 @@ curl --location 'http://localhost:5029/api/player/briv/heal' \
 ```
 
 For convenience, a Postman collection has been included containing requests to all local endpoints.
+If you have Docker installed, simply spin up the service with its companion database:
+
+```bash
+docker compose build && docker compose up -d
+```
 
 I'm a fan of [`justfile`s](https://just.systems) as I'm not smart enough to understand `make`, so if you happen
 to have `just` installed (if you have Rust installed, a simple `cargo install --locked just` will do the trick),
