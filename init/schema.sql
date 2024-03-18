@@ -1,3 +1,18 @@
+-- The database initialization script is used for defining your local schema as well as postgres
+-- running within a docker container, where we'll copy this file over and run on startup
+
+DO
+$$
+    BEGIN
+        IF
+            NOT EXISTS (SELECT 1 FROM pg_database WHERE datname = 'vital_track') THEN
+            CREATE DATABASE vital_track;
+        END IF;
+    END
+$$;
+
+\c vital_track;
+
 -- We'll need a table for players, with player name as an indexable key
 DROP TABLE IF EXISTS players CASCADE;
 CREATE TABLE players

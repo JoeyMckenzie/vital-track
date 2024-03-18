@@ -4,7 +4,7 @@ ARG DOTNET_SDK_VERSION=8.0
 
 FROM mcr.microsoft.com/dotnet/sdk:${DOTNET_SDK_VERSION}${DOTNET_OS_VERSION} AS build
 
-WORKDIR /src
+WORKDIR /app
 
 # Build stage 1: copy everything over and build
 COPY ./VitalTrack.sln ./

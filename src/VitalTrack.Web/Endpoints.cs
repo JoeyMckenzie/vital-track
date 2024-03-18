@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-
 using VitalTrack.Core.Domain;
 using VitalTrack.Core.Models;
 using VitalTrack.Core.Services;
