@@ -11,6 +11,7 @@ COPY ./VitalTrack.sln ./
 COPY ./src ./src
 COPY ./tests ./tests
 COPY ./templates ./templates
+COPY ./Directory.Build.props ./
 
 # Keep ourselves honest here, run tests as a sanity check before deploying
 RUN dotnet test
