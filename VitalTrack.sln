@@ -20,7 +20,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{3AF11F
 		Directory.Build.props = Directory.Build.props
 		.gitignore = .gitignore
 		.csharpierrc.json = .csharpierrc.json
-		fly.toml = fly.toml
 		README.md = README.md
 		.github\workflows\ci.yml = .github\workflows\ci.yml
 		Vital Track.postman_collection.json = Vital Track.postman_collection.json

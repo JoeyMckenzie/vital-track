@@ -2,4 +2,3 @@
 
 GET {{VitalTrack.BaseUrl}}/players/briv/info
 Accept: application/json
-
