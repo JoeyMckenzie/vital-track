@@ -4,6 +4,9 @@ using VitalTrack.Infrastructure.Entities;
 
 namespace VitalTrack.Infrastructure.Aggregates;
 
+/// <summary>
+///     The player aggregate query represents our player as it exists within the database as a purely anemic domain model.
+/// </summary>
 public record PlayerAggregate : EntityBase, IMappableInto<PlayerState>
 {
     public required string CharacterName { get; init; }

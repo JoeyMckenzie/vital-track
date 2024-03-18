@@ -208,6 +208,11 @@ in charge of:
     - Dealing damage to a player with zero HP produces the same state - a dead player
     - Healing a player at full health produces the same state - a player at full health
 
+One of the primary benefits of forcing this core player logic into the state machines that transition
+the state of the player given an action is test isolation. In the accompanying xUnit tests, we only need to
+verify the state of a player before and after an action is taken - other concerns, like persistence, API responses,
+etc. are implementation details tied to the framework and not the core logic itself.
+
 ### Service providers
 
 There are two core services, the hit point manager and the player repository.
@@ -221,7 +226,7 @@ I'm a big fan of [xUnit](https://xunit.net/) and [FluentAssertions](https://flue
 the tests to follow a standard arrange/act/assert pattern. For the sake of time, only the internal core business logic
 is tested, though when my 11 month old falls asleep, I may actually get the time to write some API integration tests.
 
-I'm a fan of testing 
+I'm a fan of testing
 
 ## TODO
 
