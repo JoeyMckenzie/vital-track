@@ -59,7 +59,7 @@ curl --location 'http://localhost:5029/api/player/briv/damage' \
         "damageType": "slashing",
         "amount": 12
      }' | jq '.'
-     
+
 {
   "data": {
     "name": "Briv",
@@ -87,7 +87,7 @@ curl --location 'http://localhost:5029/api/player/briv/temp' \
      --data '{
         "amount": 10
      }' | jq '.'
-     
+
 {
   "data": {
     "name": "Briv",
@@ -115,7 +115,7 @@ curl --location 'http://localhost:5029/api/player/briv/heal' \
      --data '{
         "amount": 10
      }' | jq '.'
-     
+
 {
   "data": {
     "name": "Briv",
@@ -158,12 +158,11 @@ The solution contains three projects:
 - `VitalTrack.Infrastructure` - adapters to the core business logic ports (think service implementations, persistence,
   utilities, etc.)
 
-To stay true to the spirit of the take home and keeping myself honest to get this done
+To stay true to the spirit of the take-home and keep me honest to get this done
 within a few hours (about 4 hours of implementation, an hour for documentation), I'll outline a few of the design
 decisions I've deliberately taken.
 
-I lean heavily into the YAGNI principle as I grow old, embrace my elder developer curmudgeon-ness and
-have cut a few corners in the sake of time, as my near one year old has drastically taken away
+I lean heavily into the YAGNI principle as I grow old, embrace my elder developer curmudgeon-ness, and have cut a few corners for the sake of time, as my near one-year-old has drastically taken away
 much of my free time these days:
 
 ### Persistence with Postgres
@@ -210,7 +209,7 @@ in charge of:
 
 - Maintaining player state
     - In this case, we're only concerned about hit points
-- Taking actions on the player state to produce new state
+- Taking actions on the player state to produce a new state
     - Healing, damage, and adding temporary hit points all produce a new internal state that the player model will track
 - Some actions are idempotent:
     - Dealing damage to a player with zero HP produces the same state - a dead player
@@ -232,8 +231,4 @@ There are two core services, the hit point manager and the player repository.
 
 I'm a big fan of [xUnit](https://xunit.net/) and [FluentAssertions](https://fluentassertions.com/), and you'll find
 the tests to follow a standard arrange/act/assert pattern. For the sake of time, only the internal core business logic
-is tested, though when my 11 month old falls asleep, I may actually get the time to write some API integration tests.
-
-## TODO
-
-Should probably Docker-ize the local dev environment at some point, but I'll save that as a fast follow item.
+is tested, though when my 11-month-old falls asleep, I may get the time to write some API integration tests.
