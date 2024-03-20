@@ -4,3 +4,4 @@
 .env
 VitalTrack.sln.DotSettings.user
 .DS_Store
+.mono/

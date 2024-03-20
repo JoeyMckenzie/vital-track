@@ -200,6 +200,7 @@ public class PlayerRepository : IPlayerRepository
                    i.item_name,
                    i.affected_object,
                    i.affected_value,
+                   i.value,
                    c.id as class_id,
                    c.class_name,
                    pc.hit_dice_value,
